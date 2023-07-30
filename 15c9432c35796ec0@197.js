@@ -1,7 +1,5 @@
 function _1(md){return(
-md`# Force-directed tree
-
-A [force-directed layout](/@d3/force-directed-graph) of a tree using [*hierarchy*.links](https://github.com/d3/d3-hierarchy/blob/master/README.md#node_links).`
+md`# Force-directed tree`
 )}
 
 function _chart(d3,data,drag,invalidation)
