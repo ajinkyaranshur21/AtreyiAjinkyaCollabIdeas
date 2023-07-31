@@ -21,7 +21,7 @@ function _chart(d3,data,drag,invalidation)
 
 
   const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id).strength(1))
+      .force("link", d3.forceLink(links).id(d => d.id).distance(d => d.desiredDistance))
       .force("charge", d3.forceManyBody().strength(-50))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
@@ -40,6 +40,7 @@ function _chart(d3,data,drag,invalidation)
     .selectAll("line")
     .data(links)
     .join("line");
+    
 
   // Append nodes.
   const node = svg.append("g")
@@ -51,7 +52,7 @@ function _chart(d3,data,drag,invalidation)
       .join("circle")
       .attr("fill", d => d.children ? null :color(d.group) )
       .attr("stroke", d => d.children ? null : "#fff")
-      .attr("r", 3.5)
+      .attr("r", d.x,d.y,5,0,2*Math.PI)
       .call(drag(simulation));
 
   node.append("title")
