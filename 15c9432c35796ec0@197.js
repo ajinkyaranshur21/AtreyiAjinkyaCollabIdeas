@@ -12,9 +12,13 @@ function _chart(d3,data,drag,invalidation)
   const color= d3.scaleOrdinal(d3.schemeCategory10);
 
   // Compute the graph and start the force simulation.
-  const root = d3.hierarchy(data);
-  const links = root.links();
-  const nodes = root.descendants();
+  // const root = d3.hierarchy(data);
+  // const links = data.links();
+  // const nodes = roo.descendants();
+  const nodes = data.nodes.map(d => ({ ...d}));
+  const links = data.links.map(d => ({ ...d}));
+
+
 
   const simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => d.id).strength(1))
@@ -39,19 +43,19 @@ function _chart(d3,data,drag,invalidation)
 
   // Append nodes.
   const node = svg.append("g")
-      .attr("fill", color(d =>d.group))
+      .attr("fill",color(d=> d.group))
       .attr("stroke", "#000")
       .attr("stroke-width", 1.5)
-    .selectAll("circle")
-    .data(nodes)
-    .join("circle")
-      .attr("fill", d => d.children ? null : "#000")
+      .selectAll("circle")
+      .data(nodes)
+      .join("circle")
+      .attr("fill", d => d.children ? null :color(d.group) )
       .attr("stroke", d => d.children ? null : "#fff")
       .attr("r", 3.5)
       .call(drag(simulation));
 
   node.append("title")
-      .text(d => d.data.name);
+      .text(d => d.id);
 
   simulation.on("tick", () => {
     link
