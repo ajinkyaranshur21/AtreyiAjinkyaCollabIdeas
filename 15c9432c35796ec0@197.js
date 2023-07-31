@@ -22,7 +22,7 @@ function _chart(d3,data,drag,invalidation)
 
   const simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => d.id).distance(d => d.desiredDistance))
-      .force("charge", d3.forceManyBody().strength(-500))
+      .force("charge", d3.forceManyBody().strength(-300))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
