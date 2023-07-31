@@ -52,7 +52,7 @@ function _chart(d3,data,drag,invalidation)
       .join("circle")
       .attr("fill", d => d.children ? null :color(d.group) )
       .attr("stroke", d => d.children ? null : "#fff")
-      .attr("r", d.x,d.y,5,0,2*Math.PI)
+      .attr("r", 5)
       .call(drag(simulation));
 
   node.append("title")
